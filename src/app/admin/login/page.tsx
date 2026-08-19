@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { crearClienteNavegador } from "@/lib/supabase/client";
 
 export default function LoginFuncionarios() {
@@ -29,6 +30,10 @@ export default function LoginFuncionarios() {
 
   return (
     <section className="mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-5">
+      <Link href="/" className="mb-6 text-sm text-carbon/50 hover:text-carbon">
+        ← Volver al sitio
+      </Link>
+
       <h1 className="font-display text-2xl text-bosque-hondo">Acceso funcionarios</h1>
       <p className="mt-2 text-sm text-carbon/60">Solo para personal autorizado de FUNDACA.</p>
 
