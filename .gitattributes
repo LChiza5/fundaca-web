@@ -1,0 +1,9 @@
+# Normaliza los finales de línea para que los tres integrantes no generen
+# diferencias falsas entre Windows y otros sistemas.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.docx binary

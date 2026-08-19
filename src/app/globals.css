@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+@theme {
+  --color-crema: #fbf7ee;
+  --color-crema-hondo: #f3ecdd;
+  --color-arena: #e7d8be;
+  --color-carbon: #12211b;
+  --color-bosque: #0e3b2e;
+  --color-bosque-hondo: #072019;
+  --color-musgo: #2d6a4f;
+  --color-hoja: #5a9367;
+  --color-celeste: #1b9aaa;
+  --color-celeste-claro: #7fcdd8;
+  --color-ambar: #d98a2b;
+  --color-ambar-claro: #f0c078;
+
+  --font-display: var(--fuente-display), Georgia, serif;
+  --font-sans: var(--fuente-sans), system-ui, sans-serif;
+
+  --ease-salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-suave: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+:root {
+  --borde: color-mix(in oklab, var(--color-bosque) 14%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-crema);
+  color: var(--color-carbon);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--color-celeste-claro);
+  color: var(--color-bosque-hondo);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-celeste);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Textura de papel: le quita el aspecto de plantilla plana sin costar una imagen */
+.grano::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Revelado al entrar en pantalla */
+.revelar {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 620ms var(--ease-salida),
+    transform 620ms var(--ease-salida);
+  transition-delay: var(--retraso, 0ms);
+}
+
+.revelar[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subrayado que crece desde la izquierda */
+.enlace-sub {
+  position: relative;
+}
+
+.enlace-sub::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1.5px;
+  width: 100%;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms var(--ease-salida);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .enlace-sub:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.enlace-sub[data-activo="true"]::after {
+  transform: scaleX(1);
+}
+
+/* Botones: retroalimentación inmediata al presionar */
+.presionable {
+  transition:
+    transform 160ms var(--ease-salida),
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.presionable:active {
+  transform: scale(0.97);
+}
+
+@keyframes flotar {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes derivar {
+  from {
+    transform: translate3d(-8vw, 0, 0);
+  }
+  to {
+    transform: translate3d(108vw, 0, 0);
+  }
+}
+
+@keyframes desfilar {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes brotar {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.flota {
+  animation: flotar 7s var(--ease-suave) infinite;
+}
+
+.desfila {
+  animation: desfilar 42s linear infinite;
+}
+
+.ave {
+  animation: derivar var(--dur, 34s) linear infinite;
+  animation-delay: var(--retraso, 0s);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .desfile:hover .desfila {
+    animation-play-state: paused;
+  }
+}
+
+/* Fauna: cada animal se mueve como se movería de verdad */
+
+@keyframes aletear {
+  0%,
+  100% {
+    transform: scaleX(1) rotate(0deg);
+  }
+  50% {
+    transform: scaleX(0.72) rotate(-4deg);
+  }
+}
+
+@keyframes balancear {
+  0%,
+  100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes zumbar {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+  50% {
+    transform: translate3d(6px, -9px, 0) rotate(3deg);
+  }
+}
+
+@keyframes saltar {
+  0%,
+  72%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  80% {
+    transform: translate3d(0, -14px, 0);
+  }
+  88% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes ladear {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes subir-letra {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.42em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.aletea {
+  animation: aletear 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.balancea {
+  animation: balancear 5.5s var(--ease-suave) infinite;
+  transform-origin: 50% 12%;
+}
+
+.zumba {
+  animation: zumbar 2.8s ease-in-out infinite;
+}
+
+.salta {
+  animation: saltar 6s ease-in-out infinite;
+}
+
+.ladea {
+  animation: ladear 4.5s var(--ease-suave) infinite;
+  transform-origin: 50% 80%;
+}
+
+.letra {
+  display: inline-block;
+  opacity: 0;
+  animation: subir-letra 760ms var(--ease-salida) forwards;
+  animation-delay: var(--retraso, 0ms);
+}
+
+/* Entrada del menú móvil: escalonada por elemento */
+@keyframes deslizar-entrada {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.entrada-menu {
+  opacity: 0;
+  animation-name: deslizar-entrada;
+  animation-duration: 260ms;
+  animation-timing-function: var(--ease-salida);
+  animation-fill-mode: forwards;
+  /* animation-delay proviene del style inline de cada elemento */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+
+  .flota,
+  .desfila,
+  .ave,
+  .aletea,
+  .balancea,
+  .zumba,
+  .salta,
+  .ladea {
+    animation: none;
+  }
+
+  .letra {
+    opacity: 1;
+    animation: none;
+  }
+
+  .ave {
+    display: none;
+  }
+
+  .entrada-menu {
+    opacity: 1;
+    animation: none;
+  }
+}
