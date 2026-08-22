@@ -37,7 +37,7 @@ function vinieta(texto) {
 function celda(texto, opciones = {}) {
   return new TableCell({
     width: { size: opciones.ancho, type: WidthType.DXA },
-    shading: opciones.encabezado ? { type: ShadingType.CLEAR, fill: "1F4E3D", color: "auto" } : undefined,
+    shading: opciones.encabezado ? { type: ShadingType.CLEAR, fill: "1F3864", color: "auto" } : undefined,
     margins: { top: 80, bottom: 80, left: 120, right: 120 },
     children: [new Paragraph({
       alignment: opciones.alineacion || AlignmentType.LEFT,
@@ -423,10 +423,10 @@ const doc = new Document({
     default: { document: { run: { font: "Calibri", size: 24 } } },
     paragraphStyles: [
       { id: "Heading1", name: "Heading 1", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 32, bold: true, color: "1F4E3D", font: "Calibri" },
+        run: { size: 32, bold: true, color: "1F3864", font: "Calibri" },
         paragraph: { spacing: { before: 320, after: 180 } } },
       { id: "Heading2", name: "Heading 2", basedOn: "Normal", next: "Normal", quickFormat: true,
-        run: { size: 27, bold: true, color: "2E6B54", font: "Calibri" },
+        run: { size: 27, bold: true, color: "2F6FA3", font: "Calibri" },
         paragraph: { spacing: { before: 260, after: 140 } } },
     ],
   },
